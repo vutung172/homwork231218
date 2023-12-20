@@ -33,17 +33,17 @@ public class Main {
 
             // Dùng Map
             Map<String,List<Student>> firstName = new HashMap<>();
+
             lists.forEach(student -> {
                 String key = student.getFirstName();
                 List<Student> sameFirstNames = new ArrayList<>();
                 lists.forEach(student1 -> {
                     if (student1.getFirstName().equals(key)){
-                        sameFirstNames.add(student);
+                       sameFirstNames.add(student1);
                     }
                 });
                 firstName.put(key,sameFirstNames);
             });
-            Set<String> set = firstName.keySet();
             firstName.forEach((x,y) -> {
                 System.out.println(x);
                 y.forEach(Student::output);
