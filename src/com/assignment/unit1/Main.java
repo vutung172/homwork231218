@@ -6,8 +6,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Student> lists = new ArrayList<>();
+
         do {
             String select;
+            //Sử dụng List
             do {
                 Student st = new Student();
                 st.input();
@@ -16,7 +18,7 @@ public class Main {
                 select = sc.nextLine();
             } while (select.equalsIgnoreCase("Y"));
 
-            //Sử dụng Set
+            /*//Sử dụng Set
             SortedSet<String> firstNameLists = new TreeSet<>();
             for (Student student: lists) {
                 firstNameLists.add(student.getFirstName());
@@ -27,17 +29,32 @@ public class Main {
                      ) {
                     checkFirstName(student1,s);
                 }
-            }
+            }*/
 
             // Dùng Map
-
+            Map<String,List<Student>> firstName = new HashMap<>();
+            lists.forEach(student -> {
+                String key = student.getFirstName();
+                List<Student> sameFirstNames = new ArrayList<>();
+                lists.forEach(student1 -> {
+                    if (student1.getFirstName().equals(key)){
+                        sameFirstNames.add(student);
+                    }
+                });
+                firstName.put(key,sameFirstNames);
+            });
+            Set<String> set = firstName.keySet();
+            firstName.forEach((x,y) -> {
+                System.out.println(x);
+                y.forEach(Student::output);
+            });
 
         }while (true);
 
     }
-    public static void checkFirstName(Student st, String firstName){
+    /*public static void checkFirstName(Student st, String firstName){
         if (st.getFirstName().contains(firstName)){
             st.output();
         }
-    }
+    }*/
 }
